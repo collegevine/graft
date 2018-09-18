@@ -1,5 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
-
 import Test.Hspec
 import Test.QuickCheck
 

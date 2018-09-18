@@ -1,21 +1,15 @@
-{-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE GADTs #-}
-{-# LANGUAGE TemplateHaskell #-}
-{-# LANGUAGE TypeSynonymInstances #-}
-
 module Graft.Types where
 
 import Control.Applicative ((<|>))
 import Control.Lens (Lens')
 import Control.Lens.TH
 import qualified Data.Map as M
-import Data.Monoid
 import Data.Text (Text)
 
 class TemplateData a where
     child :: Text -> a -> Maybe Var
 
-data GraftData = GraftData {
+newtype GraftData = GraftData {
     _graftDataTemplates :: M.Map String Template
 } deriving Show
 
@@ -50,9 +44,11 @@ data GraftError
     | GraftVariableMismatch Text
     deriving Show
 
+instance Semigroup GraftData where
+    (GraftData ta) <> (GraftData tb) = GraftData $ M.union ta tb
+
 instance Monoid GraftData where
     mempty = GraftData M.empty
-    mappend (GraftData ta) (GraftData tb) = GraftData $ M.union ta tb
 
 instance TemplateData a => TemplateData [a] where
     child _ [] = Nothing
