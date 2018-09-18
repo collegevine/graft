@@ -5,10 +5,9 @@ jobs:
     working_directory: ~/graft
     parallelism: 1
     docker:
-    - image: circleci/node:8.11.4-stretch
+    - image: fpco/stack-build
 
     steps:
-      - run: curl -sSL https://get.haskellstack.org/ | sh
       - checkout
 
       - restore_cache:
