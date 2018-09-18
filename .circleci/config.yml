@@ -12,7 +12,7 @@ jobs:
 
       - restore_cache:
           keys:
-          - cv-graft-cache-v1-dep-{{ .Branch }}-{{ checksum "stack.yml" }}-{{ checksum "graft.cabal" }}
+          - cv-graft-cache-v1-dep-{{ .Branch }}-{{ checksum "stack.yaml" }}-{{ checksum "graft.cabal" }}
           - cv-graft-cache-v1-dep-{{ .Branch }}-
           - cv-graft-cache-v1-dep-master-
           - cv-graft-cache-v1-dep-
@@ -20,7 +20,7 @@ jobs:
       - run: stack test
 
       - save_cache:
-          key: cv-graft-cache-v1-dep-{{ .Branch }}-{{ checksum "stack.yml" }}-{{ checksum "graft.cabal" }}
+          key: cv-graft-cache-v1-dep-{{ .Branch }}-{{ checksum "stack.yaml" }}-{{ checksum "graft.cabal" }}
           paths:
           - "~/.stack"	
           - .stack-work
