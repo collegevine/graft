@@ -5,7 +5,7 @@ jobs:
     working_directory: ~/graft
     parallelism: 1
     docker:
-    - image: fpco/stack-build
+    - image: fpco/stack-build:lts-12.9
 
     steps:
       - checkout
