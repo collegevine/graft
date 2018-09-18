@@ -1,0 +1,26 @@
+
+version: 2
+jobs:
+  build:
+    working_directory: ~/graft
+    parallelism: 1
+    docker:
+    - image: fpco/stack-build
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+          - cv-graft-cache-v1-dep-{{ .Branch }}-{{ checksum "stack.yaml" }}
+          - cv-graft-cache-v1-dep-{{ .Branch }}-
+          - cv-graft-cache-v1-dep-master-
+          - cv-graft-cache-v1-dep-
+
+      - run: stack test
+
+      - save_cache:
+          key: cv-graft-cache-v1-dep-{{ .Branch }}-{{ checksum "stack.yaml" }}
+          paths:
+          - "~/.stack"	
+          - .stack-work
