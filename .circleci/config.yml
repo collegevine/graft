@@ -8,6 +8,7 @@ jobs:
 
     steps:
       - run: curl -sSL https://get.haskellstack.org/ | sh
+      - checkout
 
       - restore_cache:
           keys:
@@ -16,7 +17,6 @@ jobs:
           - cv-graft-cache-v1-dep-master-
           - cv-graft-cache-v1-dep-
 
-      - checkout
       - run: stack test
 
       - save_cache:
